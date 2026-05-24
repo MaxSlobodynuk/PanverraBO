@@ -5,8 +5,8 @@ const supabase = require('../db')
 
 const COOKIE_OPTS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict',
+  secure: true,
+  sameSite: 'none',
   maxAge: 7 * 24 * 60 * 60 * 1000,
   path: '/',
 }
@@ -22,8 +22,6 @@ router.post('/login', async (req, res) => {
     .select('*')
     .eq('email', email.toLowerCase().trim())
     .limit(1)
-
-  console.log('[login] email:', email, '| users:', users?.length, '| error:', error?.message)
 
   if (error || !users?.length) {
     return res.status(401).json({ error: 'Invalid credentials' })
