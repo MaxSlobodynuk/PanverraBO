@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus, Search, X, ChevronDown, ChevronUp, Percent, ChevronRight, Calendar, MoreHorizontal, Trash2 } from 'lucide-react'
@@ -227,7 +227,7 @@ function AddModal({ onClose, onAddMany }) {
 
   const [deductions, setDeductions] = useState([])
 
-  useState(() => {
+  useEffect(() => {
     if (deductionPresets.length) {
       setDeductions(deductionPresets.map((d) => ({ ...d, enabled: false })))
     }
